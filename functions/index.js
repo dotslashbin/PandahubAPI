@@ -1,19 +1,32 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
 
-const {onRequest} = require("firebase-functions/v2/https");
-const logger = require("firebase-functions/logger");
+// Initialize Firebase Admin SDK
+admin.initializeApp();
+const db = admin.firestore();
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+// HTTP function to get a document by its ID
+exports.getDocumentById = functions.https.onRequest(async (req, res) => {
+  // Extract the document ID from the query parameters
+  const docId = req.query.id;
 
-exports.helloWorld = onRequest((request, response) => {
-  logger.info("Hello logs!", {structuredData: true});
-  response.send("Hello from Firebase!");
+  if (!docId) {
+    return res.status(400).send('Missing document ID');
+  }
+
+  try {
+    // Get the document from Firestore
+    const docRef = db.collection('testcollection').doc(docId);
+    const doc = await docRef.get();
+
+    if (!doc.exists) {
+      return res.status(404).send('Document not found');
+    }
+
+    // Send the document data as a response
+    return res.status(200).json(doc.data());
+  } catch (error) {
+    console.error('Error reading document:', error);
+    return res.status(500).send('Internal Server Error');
+  }
 });
