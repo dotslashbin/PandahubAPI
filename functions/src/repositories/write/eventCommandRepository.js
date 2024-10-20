@@ -8,11 +8,12 @@ const createEvent = async (event) => {
 };
 
 const updateEvent = async (id, event) => {
-    // TODO: implement
+    const eventRef = db.collection(COLLECTION).doc(id);
+    await eventRef.update({ ...event, updatedAt: new Date() });
 };
 
 const deleteEvent = async (id) => {
-    // TODO: implement
+    await db.collection(COLLECTION).doc(id).delete();
 };
 
 module.exports = { createEvent, updateEvent, deleteEvent };

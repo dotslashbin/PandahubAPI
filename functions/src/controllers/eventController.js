@@ -24,9 +24,22 @@ exports.createEvent = async (req, res) => {
 };
 
 exports.updateEvent = async (req, res) => {
-    // TODO: implement
+    try {
+        const validation = validateEvent(req.body);
+        if (!validation.isValid) return errorResponse(res, validation.errors, 400);
+
+        await eventCommandService.updateEvent(req.params.id, req.body);
+        return successResponse(res, { message: 'Event updated' });
+    } catch (error) {
+        return errorResponse(res, error);
+    }
 };
 
 exports.deleteEvent = async (req, res) => {
-    // TODO: implement
+    try {
+        await eventCommandService.deleteEvent(req.params.id);
+        return successResponse(res, { message: 'Event deleted' });
+    } catch (error) {
+        return errorResponse(res, error);
+    }
 };
