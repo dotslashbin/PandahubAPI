@@ -3,7 +3,8 @@ const db = admin.firestore();
 const COLLECTION = 'events';
 
 const createEvent = async (event) => {
-    // TODO: implement
+    const eventRef = await db.collection(COLLECTION).add(Object.assign({}, event));
+    return eventRef.id;
 };
 
 const updateEvent = async (id, event) => {

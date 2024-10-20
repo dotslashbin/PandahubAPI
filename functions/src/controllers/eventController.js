@@ -12,7 +12,15 @@ exports.getEventById = async (req, res) => {
 };
 
 exports.createEvent = async (req, res) => {
-    // TODO: implement
+    try {
+        const validation = validateEvent(req.body);
+        if (!validation.isValid) return errorResponse(res, validation.errors, 400);
+
+        const eventId = await eventCommandService.createEvent(req.body);
+        return successResponse(res, { id: eventId }, 201);
+    } catch (error) {
+        return errorResponse(res, error);
+    }
 };
 
 exports.updateEvent = async (req, res) => {
