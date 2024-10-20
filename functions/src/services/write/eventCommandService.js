@@ -2,31 +2,15 @@ const eventCommandRepository = require('../../repositories/write/eventCommandRep
 const { Event } = require('../../models/eventModel');
 
 const createEvent = async (eventData) => {
-    const event = new Event({
-        title: eventData.title,
-        description: eventData.description,
-        date: eventData.date,
-        location: eventData.location,
-        organizer: eventData.organizer,
-        eventType: eventData.eventType
-    });
-    return await eventCommandRepository.createEvent(event);
+    // TODO: implement
 };
 
 const updateEvent = async (id, eventData) => {
-    const event = new Event({
-        title: eventData.title,
-        description: eventData.description,
-        date: eventData.date,
-        location: eventData.location,
-        organizer: eventData.organizer,
-        eventType: eventData.eventType
-    });
-    return await eventCommandRepository.updateEvent(id, event);
+    // TODO: implement
 };
 
 const deleteEvent = async (id) => {
-    return await eventCommandRepository.deleteEvent(id);
+    // TODO: implement
 };
 
 module.exports = { createEvent, updateEvent, deleteEvent };
