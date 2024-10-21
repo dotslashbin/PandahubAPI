@@ -1,11 +1,11 @@
 const eventQueryRepository = require('../../repositories/read/eventQueryRepository');
 
 const getAllEvents = async () => {
-    // TODO: implement
+    return await eventQueryRepository.getAllEvents();
 };
 
 const getEventById = async (id) => {
-    // TODO: implement
+    return await eventQueryRepository.getEventById(id);
 };
 
 module.exports = { getAllEvents, getEventById };
