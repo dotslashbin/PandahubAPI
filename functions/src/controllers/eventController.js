@@ -4,11 +4,21 @@ const eventCommandService = require('../services/write/eventCommandService');
 const { validateEvent } = require('../validators/eventValidator');
 
 exports.getAllEvents = async (req, res) => {
-    // TODO: implement
+    try {
+        const events = await eventQueryService.getAllEvents();
+        return successResponse(res, events);
+    } catch (error) {
+        return errorResponse(res, error);
+    }
 };
 
 exports.getEventById = async (req, res) => {
-    // TODO: implement
+    try {
+        const event = await eventQueryService.getEventById(req.params.id);
+        return successResponse(res, event);
+    } catch (error) {
+        return errorResponse(res, error);
+    }
 };
 
 exports.createEvent = async (req, res) => {
