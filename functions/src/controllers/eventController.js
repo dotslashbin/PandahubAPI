@@ -35,7 +35,7 @@ exports.createEvent = async (req, res) => {
 
 exports.updateEvent = async (req, res) => {
     try {
-        const updatedEventData = JSON.parse(req.body);
+        const updatedEventData = req.body;
 
         const validation = validateEvent(updatedEventData);
         if (!validation.isValid) return errorResponse(res, validation.errors, 400);
